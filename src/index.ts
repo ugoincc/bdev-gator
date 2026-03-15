@@ -9,37 +9,40 @@ const registry = {} as CommandsRegistry
 
 function registerCommand(registry: CommandsRegistry, cmdName: string, handler: CommandHandler) {
   registry[cmdName] = handler;
-  console.log(`Command: ${cmdName} registered to ${handler.name}`)
+  //console.log(`Command: ${cmdName} registered to ${handler.name}`)
 }
 
 function runCommand(registry: CommandsRegistry, cmdName: string, ...args: string[]) {
+  if (!(cmdName in registry)) {
+    throw new Error('Command not recognized, exiting...')
+  }
+
+  console.log(`Running: ${cmdName}`)
+  registry[cmdName](cmdName, ...args);
 
 }
 
 function handlerLogin(cmdName: string, ...args: string[]) {
-  if (!args) throw Error('Login expects username as argument');
+  if (args.length === 0) throw Error('Login expects username as argument');
 
-  try {
-    setUser(args[0])
-  } catch (e) {
-    console.log('Failed')
-  }
+  setUser(args[0])
 }
 
 function main() {
-  argv.forEach((val, index) => {
-    console.log(`${index}: ${val}`);
-  })
-
   if (argv.length < 3) {
     console.log('Not enough arguments.')
     process.exit(1)
   }
 
-  const args = argv.slice(2,)
-  console.log(`Sliced Arguments = ${args}`);
-
   registerCommand(registry, 'login', handlerLogin);
+  const args = argv.slice(2,)
+
+  try {
+    runCommand(registry, args[0], ...args.slice(1));
+  } catch (err) {
+    console.error(`Error: ${(err as Error).message}`);
+    process.exit(1);
+  }
 }
 
 main();

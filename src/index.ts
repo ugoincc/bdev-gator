@@ -1,4 +1,4 @@
-import { setUser, readConfig, } from '../config';
+import { setUser } from '../config';
 import { argv } from 'node:process';
 
 

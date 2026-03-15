@@ -1,7 +1,5 @@
-import { error } from "console";
 import fs from "fs"
 import os from "os"
-import path from "path"
 
 const configFilePath = os.homedir() + '/.gatorconfig.json';
 

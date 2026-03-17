@@ -8,6 +8,13 @@
       "when": 1773607933578,
       "tag": "0000_lush_true_believers",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1773689709010,
+      "tag": "0001_small_network",
+      "breakpoints": true
     }
   ]
 }

@@ -13,11 +13,9 @@ function writeConfig(cfg: Config): void {
 }
 
 export function setUser(username: string) {
-  let newConfig = {
-    currentUserName: username,
-    dbUrl: 'postgres://example'
-  } as Config
-  writeConfig(newConfig)
+  const config = readConfig()
+  config.currentUserName = username;
+  writeConfig(config)
 }
 
 function validateConfig(rawConfig: any): Config {
